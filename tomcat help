@@ -1,0 +1,20 @@
+
+stop tomcat :
+
+First of all check your port : 8080 on your system.
+
+I am using linux , i have followed this approach and it worked for me.
+
+Step 1 : sudo netstat -nlp | grep 8080
+
+It has shown which PID is listening to my port.
+
+tcp6 0 0 :::8080 ::: LISTEN 1112/java*
+
+Step 2 : sudo kill -TERM 1112
+
+And run your project on STS :
+
+Run As -> Run on Server
+
+And it worked fine on http://localhost:8080/myapp/
