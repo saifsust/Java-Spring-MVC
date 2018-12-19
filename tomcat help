@@ -18,3 +18,7 @@ And run your project on STS :
 Run As -> Run on Server
 
 And it worked fine on http://localhost:8080/myapp/
+
+
+sts install
+https://jmguimera.blogspot.com/2016/08/instalar-el-spring-suite-tool-eclipse_23.html
