@@ -22,3 +22,29 @@ And it worked fine on http://localhost:8080/myapp/
 
 sts install
 https://jmguimera.blogspot.com/2016/08/instalar-el-spring-suite-tool-eclipse_23.html
+
+
+
+/tomcat file directory add
+
+ -->
+      <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
+
+        <!-- SingleSignOn valve, share authentication between web applications
+             Documentation at: /docs/config/valve.html -->
+        <!--
+        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+
+        <!-- Access log processes all example.
+             Documentation at: /docs/config/valve.html
+             Note: The pattern used is equivalent to using pattern="common" -->
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
+
+       
+      <Context path="/Saiful_IT_SOLUTION/storage" docBase="/media/saif-sust/WEB_project/Mycompany/storage/" />
+      
+      
+      <Context docBase="Mycompany" path="/Saiful_IT_SOLUTION" reloadable="true" source="org.eclipse.jst.jee.server:Mycompany"/>
+      
+      </Host>
