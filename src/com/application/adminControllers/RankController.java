@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.application.controllers.Directory;
 import com.application.dao.RankDao;
+import com.application.interfaces.Defualt;
 import com.application.model.Rank;
 import com.application.viewLogic.RankView;
 
 @Controller("rankController")
-public class RankController implements Directory {
+public class RankController implements Defualt {
 
 	private ModelAndView mnv;
 	private JdbcTemplate jdbcTemplate;

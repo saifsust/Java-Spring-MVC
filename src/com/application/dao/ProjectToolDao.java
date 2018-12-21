@@ -8,11 +8,13 @@ import java.util.Map;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 
+import com.application.interfaces.Query;
 import com.application.migrations.InstallMigrations;
 import com.application.model.ProjectTool;
 
-public class ProjectToolDao extends Query<ProjectTool> {
+public class ProjectToolDao implements Query<ProjectTool> {
 
+	private String query;
 	@Override
 	public ProjectTool mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProjectTool projectTool = new ProjectTool();

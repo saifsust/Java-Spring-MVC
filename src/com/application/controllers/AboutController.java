@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.application.interfaces.Defualt;
+
 @Controller("aboutController")
-public class AboutController implements Directory {
+public class AboutController implements Defualt {
   private final String regExp ="";
 	private ModelAndView mnv;
 

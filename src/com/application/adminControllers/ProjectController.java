@@ -18,14 +18,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.application.businessLogic.ImageFactory;
-import com.application.controllers.Directory;
 import com.application.controllers.Methods;
 import com.application.dao.ProjectDao;
+import com.application.interfaces.Defualt;
 import com.application.model.Project;
 import com.application.viewLogic.ProjectView;
 
 @Controller("projectController")
-public class ProjectController implements Directory, Methods<Project> {
+public class ProjectController implements Defualt, Methods<Project> {
 
 	private JdbcTemplate jdbcTemplate;
 	private ModelAndView mnv;
@@ -44,14 +44,18 @@ public class ProjectController implements Directory, Methods<Project> {
 		mnv = new ModelAndView(direct());
 
 		request.setAttribute("check", 3);
-		//System.out.println("Hello");
+		System.out.println("Hello");
 		try {
 			ProjectDao projectDao = new ProjectDao();
 			ProjectView projectView = new ProjectView();
 
 			List<Project> projects = projectDao.getAll(jdbcTemplate);
+			
+			System.out.println(projects);
+			
 			request.setAttribute("projects", projectView.getProjects(projects));
-			//System.out.println(projectView.getProjects(projects));
+			
+			
 
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -96,9 +100,14 @@ public class ProjectController implements Directory, Methods<Project> {
 		mnv = new ModelAndView(back());
 
 		ImageFactory imageFactory = new ImageFactory();
+		
 		String path = imageFactory.move(mpf, STORE_PROJECT, _PROJECT, request);
+		
+		System.out.println(path);
+		
+		
 		model.setProject_img(path);
-		//System.out.println(model);
+		System.out.println(model);
 
 		try {
 			ProjectDao projectDao = new ProjectDao();

@@ -7,9 +7,12 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.application.interfaces.Query;
 import com.application.model.Rank;
 
-public class RankDao extends Query<Rank> {
+public class RankDao implements Query<Rank> {
+
+	private String query;
 
 	@Override
 	public List<Rank> getAll(JdbcTemplate jdbcTemplate) throws SQLException {
@@ -25,8 +28,6 @@ public class RankDao extends Query<Rank> {
 		return true;
 	}
 
-
-
 	@Override
 	public Rank mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 		Rank rank = new Rank(resultSet.getInt("rank_id"), resultSet.getString("rank"));
@@ -39,8 +40,6 @@ public class RankDao extends Query<Rank> {
 		return false;
 	}
 
-
-
 	@Override
 	public List<Map<String, Object>> getAll(String name, JdbcTemplate jdbcTemplate) throws SQLException {
 		// TODO Auto-generated method stub
@@ -52,7 +51,5 @@ public class RankDao extends Query<Rank> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }

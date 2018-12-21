@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.application.controllers.Directory;
 import com.application.dao.HomeDao;
 import com.application.dao.PageDao;
+import com.application.interfaces.Defualt;
 import com.application.model.Home;
 
 @Controller("homeContents")
-public class HomeContents implements Directory {
+public class HomeContents implements Defualt {
 
 	private JdbcTemplate jdbcTemplate;
 	private ModelAndView mnv;

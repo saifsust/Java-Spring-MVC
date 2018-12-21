@@ -5,19 +5,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
-import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.application.controllers.Directory;
+import com.application.interfaces.Query;
 import com.application.model.SelectedPage;
 
-public class PageDao extends Query<SelectedPage> {
+public class PageDao implements Query<SelectedPage> {
 
+	private String query;
+	
 	public void selectedPageUpdate(int page_id, int selected_page_id, JdbcTemplate jdbcTemplate) throws Exception {
 		try {
 			query = "INSERT INTO " + DATABASE_NAME + ".pages(page_id,selected_page_id) VALUE ( " + page_id + ","
@@ -40,7 +36,9 @@ public class PageDao extends Query<SelectedPage> {
 
 	@Override
 	public SelectedPage mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
+		
+		
+		
 		return null;
 	}
 
@@ -70,8 +68,9 @@ public class PageDao extends Query<SelectedPage> {
 
 	@Override
 	public Map<String, Object> getRowById(int id, JdbcTemplate jdbcTemplate) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String SQL = SELECT_ALL+" pages WHERE page_id = "+id;
+		return jdbcTemplate.queryForMap(SQL);
 	}
 
 }

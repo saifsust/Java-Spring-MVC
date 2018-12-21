@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.application.interfaces.Defualt;
+
 @Controller("worksController")
-public class WorksController implements Directory {
+public class WorksController implements Defualt {
 	private ModelAndView mnv;
 
 	@RequestMapping(value = "/works", method = RequestMethod.GET)

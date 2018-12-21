@@ -7,10 +7,13 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.application.interfaces.Query;
 import com.application.model.Project;
 
-public class ProjectDao extends Query<Project> {
+public class ProjectDao implements Query<Project> {
 
+	private String query;
+	
 	@Override
 	public Project mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Project project = new Project(rs.getInt("project_id"), rs.getString("project_title"),

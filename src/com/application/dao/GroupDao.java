@@ -7,11 +7,14 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.application.interfaces.Query;
 import com.application.migrations.InstallMigrations;
 import com.application.model.Group;
 
-public class GroupDao extends Query<Group> {
+public class GroupDao implements Query<Group> {
 
+	private String query;
+	
 	@Override
 	public Group mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 

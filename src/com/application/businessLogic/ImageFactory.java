@@ -23,7 +23,10 @@ public class ImageFactory {
 
 		String name = getName(mpf.toString()) + "_" + mpf.getOriginalFilename();
 		String _path = destination + name;
-		//System.out.println(_path);
+		
+		System.out.println(_path);
+		
+		
 		File save = new File(_path);
 		try {
 			try (InputStream inStream = mpf.getInputStream();
@@ -35,9 +38,9 @@ public class ImageFactory {
 				stream.flush();
 
 			}
-			return getBaseURL(httpServletRequest) + "//store//" + store_house + "//" + name;
+			return getBaseURL(httpServletRequest) + "//storage//" + store_house + "//" + name;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("ImageFactory Error : "+  e.getMessage());
 			throw new RuntimeException(e);
 		}
 

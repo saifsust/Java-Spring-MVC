@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.application.controllers.Directory;
 import com.application.dao.ProjectToolDao;
+import com.application.interfaces.Defualt;
 import com.application.model.ProjectTool;
 import com.application.viewLogic.ProjectToolView;
 
 @Controller("projectToolController")
-public class ProjectToolController implements Directory {
+public class ProjectToolController implements Defualt {
 
 	private JdbcTemplate jdbcTemplate;
 	private ModelAndView mnv;

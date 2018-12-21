@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.application.interfaces.Defualt;
+
 @Controller("servicesController")
-public class ServicesController implements Directory {
+public class ServicesController implements Defualt {
 	private ModelAndView mnv;
 
 	@RequestMapping(value = "/services", method = RequestMethod.GET)

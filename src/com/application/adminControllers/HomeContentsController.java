@@ -5,10 +5,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import javax.websocket.server.PathParam;
 
-import org.apache.el.parser.JJTELParserState;
-import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -22,12 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.application.businessLogic.ImageFactory;
-import com.application.controllers.Directory;
 import com.application.dao.HomeDao;
+import com.application.interfaces.Defualt;
 import com.application.model.Home;
 
 @Controller("homeContentsController")
-public class HomeContentsController implements Directory {
+public class HomeContentsController implements Defualt {
 
 	private ModelAndView mnv;
 	private JdbcTemplate jdbcTemplate;

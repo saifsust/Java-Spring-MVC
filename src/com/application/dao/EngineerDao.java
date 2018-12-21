@@ -7,10 +7,12 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.application.interfaces.Query;
 import com.application.model.Engineer;
 
-public class EngineerDao extends Query<Engineer> {
+public class EngineerDao implements Query<Engineer> {
 
+	private String query;
 	@Override
 	public Engineer mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 		Engineer engineer = new Engineer();

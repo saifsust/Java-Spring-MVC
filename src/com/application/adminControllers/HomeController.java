@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.application.controllers.Directory;
+import com.application.interfaces.Defualt;
 
 @Controller("homeController")
-public class HomeController implements Directory {
+public class HomeController implements Defualt {
 	private ModelAndView mnv;
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)

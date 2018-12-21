@@ -7,10 +7,12 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.application.interfaces.Query;
 import com.application.model.Home;
 
-public class HomeDao extends Query<Home> {
+public class HomeDao implements Query<Home> {
 
+	private String query;
 	@Override
 	public Home mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 		Home home = new Home();
@@ -60,8 +62,15 @@ public class HomeDao extends Query<Home> {
 
 	@Override
 	public Map<String, Object> getRowById(int id, JdbcTemplate jdbcTemplate) throws SQLException {
-
-		return null;
+         
+		PageDao pageDao = new PageDao();
+		
+		Object homeId = pageDao.getRowById(id, jdbcTemplate).get("selected_page_id");
+		
+		
+		String SQL =SELECT_ALL+" home WHERE home_id = "+homeId; 
+		
+		return jdbcTemplate.queryForMap(SQL);
 	}
 
 }

@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.application.controllers.Directory;
 import com.application.controllers.Methods;
+import com.application.interfaces.Defualt;
 import com.application.model.Client;
 import com.application.viewLogic.Profile;
 
 @Controller("profileController")
-public class ProfileController implements Directory, Methods<Client> {
+public class ProfileController implements Defualt, Methods<Client> {
 
 	private ModelAndView mnv;
 	private JdbcTemplate jdbcTemplate;

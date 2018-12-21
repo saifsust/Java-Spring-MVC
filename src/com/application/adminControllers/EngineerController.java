@@ -17,13 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.application.businessLogic.ImageFactory;
-import com.application.controllers.Directory;
 import com.application.dao.EngineerDao;
 import com.application.dao.RankDao;
+import com.application.interfaces.Defualt;
 import com.application.model.Engineer;
 
 @Controller("engineerController")
-public class EngineerController implements Directory {
+public class EngineerController implements Defualt {
 
 	private ModelAndView mnv;
 	private JdbcTemplate jdbcTemplate;

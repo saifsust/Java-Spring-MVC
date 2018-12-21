@@ -8,8 +8,9 @@
 	<jsp:include page="layouts/navbar.jsp" />
 	<!-- -->
 
+	<%= request.getAttribute("header") %>
 
-	<div style="background: url(http://localhost:8080/Saiful_IT_SOLUTION//store//21d851d_header-bg.jpg) no-repeat center top;"
+	<!-- 	<div style="background: url(http://localhost:8080/Saiful_IT_SOLUTION//storage//home//2f84fbe_header-bg.jpg) no-repeat center top;"
 		id="headerwrap">
 		<div class="container">
 			<div class="row centered">
@@ -20,10 +21,10 @@
 					<h2>It Takes a Designer</h2>
 				</div>
 			</div>
-			<!-- row -->
+			row
 		</div>
-		<!-- container -->
-	</div>
+		container
+	</div> -->
 	<!-- headerwrap -->
 
 

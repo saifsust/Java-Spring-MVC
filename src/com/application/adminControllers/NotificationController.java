@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.application.controllers.Directory;
+import com.application.interfaces.Defualt;
 
 @Controller("notificationController")
-public class NotificationController implements Directory {
+public class NotificationController implements Defualt {
 
 	private ModelAndView mnv;
 
