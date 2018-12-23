@@ -2,6 +2,8 @@ package com.application.migrations;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.application.interfaces.Migrations;
+
 public class InstallMigrations implements Migrations {
 
 	private String query;
@@ -137,8 +139,9 @@ public class InstallMigrations implements Migrations {
 			query = CREATE_TABEL + ".home(home_id int(11) " + ID
 					+ ",header_img text,header varchar(300),latest_projects varchar(100) default 'latest_projects',first_class_project_id int(11),"
 					+ " selected_services varchar(100) default 'selected_services', selected_clients varchar(100) default 'selected_clients',"
-					+ " end_header varchar(300),end_detail text,social_medias varchar(100) default 'social_medias',"
-					+ " foreign key(first_class_project_id) references " + DATABASE_NAME + ".projects(project_id))";
+					+ " end_header varchar(300),end_detail text,social_medias varchar(100) default 'social_medias')";
+			/// + " foreign key(first_class_project_id) references " + DATABASE_NAME +
+			/// ".projects(project_id))";
 			jdbcTemplate.execute(query);
 
 		} catch (Exception ex) {
@@ -152,9 +155,9 @@ public class InstallMigrations implements Migrations {
 	private void selected_engineers(JdbcTemplate jdbcTemplate) {
 
 		try {
-			query = CREATE_TABEL + ".selected_engineers(selected_engineer_id int(5) " + ID
-					+ ",engineer_id int(11), foreign key(engineer_id) references  " + DATABASE_NAME
-					+ ".engineers(engineer_id))";
+			query = CREATE_TABEL + ".selected_engineers(selected_engineer_id int(5) " + ID + ",engineer_id int(11))";
+			// foreign key(engineer_id) references " + DATABASE_NAME
+			// + ".engineers(engineer_id))";
 			jdbcTemplate.execute(query);
 
 		} catch (Exception ex) {
@@ -168,9 +171,13 @@ public class InstallMigrations implements Migrations {
 	private void selected_services(JdbcTemplate jdbcTemplate) {
 
 		try {
-			query = CREATE_TABEL + ".selected_services(selected_service_id int(5) " + ID
-					+ ",service_id int(11), foreign key(service_id) references  " + DATABASE_NAME
-					+ ".services(service_id))";
+			query = CREATE_TABEL + ".selected_services(selected_service_id int(5) " + ID + ",service_id int(11))";// foreign
+																													// key(service_id)
+																													// references
+																													// "
+																													// +
+																													// DATABASE_NAME
+			// + ".services(service_id))";
 			jdbcTemplate.execute(query);
 
 		} catch (Exception ex) {
@@ -203,8 +210,13 @@ public class InstallMigrations implements Migrations {
 
 	private void selected_clients(JdbcTemplate jdbcTemplate) {
 		try {
-			query = CREATE_TABEL + ".selected_clients(selected_client_id int(5) " + ID
-					+ ", client_id int(11),foreign key(client_id) references " + DATABASE_NAME + ".clients(client_id))";
+			query = CREATE_TABEL + ".selected_clients(selected_client_id int(5) " + ID + ", client_id int(11))";// foreign
+																												// key(client_id)
+																												// references
+																												// " +
+																												// DATABASE_NAME
+																												// +
+																												// ".clients(client_id))";
 			jdbcTemplate.execute(query);
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);
@@ -214,9 +226,9 @@ public class InstallMigrations implements Migrations {
 	// latest work table
 	private void latest_projects(JdbcTemplate jdbcTemplate) {
 		try {
-			query = CREATE_TABEL + ".latest_projects(latest_project_id int(5) " + ID
-					+ ",project_id int(11), foreign key(project_id) references " + DATABASE_NAME
-					+ ".projects(project_id))";
+			query = CREATE_TABEL + ".latest_projects(latest_project_id int(5) " + ID + ",project_id int(11))";
+			// foreign key(project_id) references " + DATABASE_NAME +
+			// ".projects(project_id))";
 			jdbcTemplate.execute(query);
 
 		} catch (Exception ex) {
@@ -228,10 +240,11 @@ public class InstallMigrations implements Migrations {
 	private void projects(JdbcTemplate jdbcTemplate) {
 		try {
 			query = CREATE_TABEL + ".projects(project_id int(11)" + ID
-					+ ",project_title varchar(200),project_img text, detail text, order_date date,delevery_date date,client_id int(11),project_tools varchar(300) default 'N', developer_group_id int(11),deal_detail text,isComplete bool default false)";// ,foreign
-																																																															// key(client_id)
-																																																															// references
-																																																															// "
+					+ ",project_title varchar(200),project_img text, detail text, order_date date,delevery_date date,client_id int(11),project_tools varchar(300) default 'N', developer_group_id int(11),deal_detail text,isComplete bool default false)";
+			// ,foreign
+			// key(client_id)
+			// references
+			// "
 			// + DATABASE_NAME + ".clients(client_id))";
 			jdbcTemplate.execute(query);
 
@@ -293,8 +306,9 @@ public class InstallMigrations implements Migrations {
 	private void engineers(JdbcTemplate jdbcTemplate) {
 		try {
 			query = CREATE_TABEL + ".engineers(engineer_id int(11)" + ID
-					+ ", first_name varchar(100),last_name varchar(100),picture text,about_your_self text, user_id text,user_password text,mail text, rank_id int(5), foreign key(rank_id) references "
-					+ DATABASE_NAME + ".ranks(rank_id))";
+					+ ", first_name varchar(100),last_name varchar(100),picture text,about_your_self text, user_id text,user_password text,mail text, rank_id int(5))";
+			// foreign key(rank_id) references "
+			// + DATABASE_NAME + ".ranks(rank_id))";
 			jdbcTemplate.execute(query);
 
 		} catch (Exception ex) {
@@ -332,8 +346,9 @@ public class InstallMigrations implements Migrations {
 	public static boolean createGroup(String group_name, JdbcTemplate jdbcTemplate) {
 		try {
 			String query = CREATE_TABEL + "." + group_name + " ( group_id int(11) " + ID
-					+ ",engineer_id int(11) not null unique, foreign key(engineer_id) references " + DATABASE_NAME
-					+ ".engineers(engineer_id))";
+					+ ",engineer_id int(11) not null unique)";
+			// foreign key(engineer_id) references " + DATABASE_NAME
+			// + ".engineers(engineer_id))";
 			jdbcTemplate.execute(query);
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);

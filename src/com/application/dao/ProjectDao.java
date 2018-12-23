@@ -9,11 +9,21 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.application.interfaces.Query;
 import com.application.model.Project;
+import com.application.model.Service;
 
 public class ProjectDao implements Query<Project> {
 
 	private String query;
+	private JdbcTemplate jdbcTemplate;
 	
+	public ProjectDao() {
+		
+	}
+	
+	public ProjectDao(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 	@Override
 	public Project mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Project project = new Project(rs.getInt("project_id"), rs.getString("project_title"),
@@ -23,36 +33,55 @@ public class ProjectDao implements Query<Project> {
 		return project;
 	}
 
+	
 	@Override
-	public List<Project> getAll(JdbcTemplate jdbcTemplate) throws SQLException {
-		query = SELECT_ALL + "projects";
-		return jdbcTemplate.query(query, new ProjectDao());
+	public List<Project> getAll() throws SQLException {
+		String SQL = SELECT_ALL + "projects";
+		return jdbcTemplate.query(SQL, new ProjectDao());
 	}
 
 	@Override
-	public boolean insert(Project table, JdbcTemplate jdbcTemplate) throws SQLException {
+	public boolean insert(Project model) throws SQLException {
 		query = INSERT
 				+ "projects(project_title,project_img,detail,order_date,delevery_date,client_id,project_tools,deal_detail,isComplete) VALUE "
-				+ table;
+				+ model;
 		jdbcTemplate.update(query);
 		return false;
 	}
 
 	@Override
-	public boolean insert(Project table, String name, JdbcTemplate jdbcTemplate) throws SQLException {
+	public boolean insert(Project model, String name) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public List<Map<String, Object>> getAll(String name, JdbcTemplate jdbcTemplate) throws SQLException {
+	public List<Map<String, Object>> getAll(String name) throws SQLException {
 
 		return null;
 	}
 
 	@Override
-	public Map<String, Object> getRowById(int id, JdbcTemplate jdbcTemplate) throws SQLException {
+	public Map<String, Object> getRowById(int id) throws SQLException {
 		return null;
+	}
+
+	@Override
+	public List<Project> getAllLimit() throws SQLException {
+		query = SELECT_ALL + "projects LIMIT 0,6";
+		return jdbcTemplate.query(query, new ProjectDao());
+	}
+
+	@Override
+	public void update(int id, Project model) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(int id, int selected_id) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -18,24 +18,30 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.application.businessLogic.ImageFactory;
-import com.application.controllers.Methods;
-import com.application.dao.ProjectDao;
+import com.application.factorys.DaoFactory;
+import com.application.factorys.ViewFactory;
 import com.application.interfaces.Defualt;
+import com.application.interfaces.Methods;
+import com.application.interfaces.Query;
+import com.application.interfaces.View;
 import com.application.model.Project;
-import com.application.viewLogic.ProjectView;
+import com.application.views.ProjectView;
 
 @Controller("projectController")
 public class ProjectController implements Defualt, Methods<Project> {
 
-	private JdbcTemplate jdbcTemplate;
+	private final String TYPE = "PROJECT";
+	private DaoFactory daoFactory;
 	private ModelAndView mnv;
+	private View view = ViewFactory.getView(TYPE);
+
+	private Query projectDao;
 
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		// TODO Auto-generated method stub
-		jdbcTemplate = new JdbcTemplate(dataSource);
-
+		daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		projectDao = daoFactory.getDao(TYPE);
 	}
 
 	@RequestMapping(value = "/project", method = RequestMethod.GET)
@@ -46,16 +52,12 @@ public class ProjectController implements Defualt, Methods<Project> {
 		request.setAttribute("check", 3);
 		System.out.println("Hello");
 		try {
-			ProjectDao projectDao = new ProjectDao();
-			ProjectView projectView = new ProjectView();
 
-			List<Project> projects = projectDao.getAll(jdbcTemplate);
-			
+			List<Project> projects = projectDao.getAll();
+
 			System.out.println(projects);
-			
-			request.setAttribute("projects", projectView.getProjects(projects));
-			
-			
+
+			request.setAttribute("projects", view.view_table(projects));
 
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -100,18 +102,17 @@ public class ProjectController implements Defualt, Methods<Project> {
 		mnv = new ModelAndView(back());
 
 		ImageFactory imageFactory = new ImageFactory();
-		
+
 		String path = imageFactory.move(mpf, STORE_PROJECT, _PROJECT, request);
-		
+
 		System.out.println(path);
-		
-		
+
 		model.setProject_img(path);
 		System.out.println(model);
 
 		try {
-			ProjectDao projectDao = new ProjectDao();
-			projectDao.insert(model, jdbcTemplate);
+
+			projectDao.insert(model);
 
 		} catch (Exception ex) {
 			System.out.println("Upload Project : " + ex.getMessage());
@@ -143,8 +144,7 @@ public class ProjectController implements Defualt, Methods<Project> {
 	public ModelAndView upload(HttpServletRequest request, HttpServletResponse response) {
 		mnv = new ModelAndView(direct());
 		request.setAttribute("check", 4);
-		ProjectView projectView = new ProjectView();
-		request.setAttribute("project_form", projectView.getProjectForm());
+		request.setAttribute("project_form", view.form());
 		return mnv;
 	}
 

@@ -17,32 +17,36 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.application.dao.HomeDao;
 import com.application.dao.PageDao;
+import com.application.factorys.DaoFactory;
 import com.application.interfaces.Defualt;
+import com.application.interfaces.Query;
 import com.application.model.Home;
 
 @Controller("homeContents")
 public class HomeContents implements Defualt {
 
-	private JdbcTemplate jdbcTemplate;
+	private DaoFactory daoFactory;
 	private ModelAndView mnv;
 
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
+		this.daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
 
 	}
 
 	@RequestMapping(value = "/homeContents", method = RequestMethod.GET)
 	public ModelAndView view(HttpServletRequest request, HttpServletResponse response) {
 		mnv = new ModelAndView(direct());
-		HomeDao homeDao = new HomeDao();
 		try {
-			List<Home> populated = homeDao.getAll(jdbcTemplate);
+
+			Query homeDao = daoFactory.getDao("home");
+			List<Home> populated = homeDao.getAll();
+			
 			request.setAttribute("populated", populated);
-		} catch (SQLException e) {
+		} catch (Exception ex) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Home Contents Exception : "+ex.getMessage());
 		}
 
 		return mnv;
@@ -52,9 +56,11 @@ public class HomeContents implements Defualt {
 	public ModelAndView selectHome(@PathVariable("selected_page_id") int selected_page_id) {
 		mnv = new ModelAndView(back());
 
-		PageDao pageDao = new PageDao();
 		try {
-			pageDao.selectedPageUpdate(HOME, selected_page_id, jdbcTemplate);
+			
+			Query pageDao = daoFactory.getDao("page");
+			
+			pageDao.update(HOME, selected_page_id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,9 +72,11 @@ public class HomeContents implements Defualt {
 	@RequestMapping(value = "/unselectedHome", method = RequestMethod.POST)
 	public ModelAndView unselectHome() {
 		mnv = new ModelAndView(back());
-		PageDao pageDao = new PageDao();
+		
 		try {
-			pageDao.selectedPageUpdate(HOME, DEFAULT, jdbcTemplate);
+			Query pageDao = daoFactory.getDao("page");
+			
+			pageDao.update(HOME, DEFAULT);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

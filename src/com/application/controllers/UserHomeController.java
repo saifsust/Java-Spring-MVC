@@ -1,4 +1,13 @@
 package com.application.controllers;
+/**
+*
+*@NAME SAIFUL ISLAM
+*@BATCH SUST CSE 2013-14
+*@Email : saiful.sust.cse@gmail.com
+*@Facebok : https://www.facebook.com/SaifulIslamLitonSust
+*/
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,22 +20,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.application.dao.HomeDao;
-import com.application.dao.PageDao;
+import com.application.factorys.DaoFactory;
+import com.application.factorys.ViewFactory;
 import com.application.interfaces.Defualt;
 import com.application.interfaces.Query;
+import com.application.interfaces.View;
 import com.application.migrations.InstallMigrations;
-import com.application.viewLogic.HomeView;
+import com.application.model.Project;
+import com.application.model.Service;
 
 @Controller("userHomeController")
 public class UserHomeController implements Defualt {
+
+	private final String TYPE = "HOME";
+	private String TAG;
 	private ModelAndView mnv;
+	private DaoFactory daoFactory;
+	private View view;
+	private Query dao;
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
+
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		daoFactory = new DaoFactory(jdbcTemplate);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -34,34 +53,41 @@ public class UserHomeController implements Defualt {
 	@Override
 	public ModelAndView view(HttpServletRequest request, HttpServletResponse response) {
 
-		installDatabase();
-
 		try {
 
-			HomeDao homeDao = new HomeDao();
+			System.out.println("Hello User Home");
+
+			dao = daoFactory.getDao(TYPE);
+
+			view = ViewFactory.getView(TYPE);
+
 			// System.out.println(homeDao.getRowById(1, jdbcTemplate).get("header_img"));
-			request.setAttribute("header", HomeView.view(homeDao.getRowById(1, jdbcTemplate)));
-			// PageDao pageDao = new PageDao();
+			request.setAttribute("header", view.view(dao.getRowById(HOME)));
 
-			// System.out.println(pageDao.getRowById(1,
-			// jdbcTemplate).get("selected_page_id"));
+			TAG = "SERVICE";
 
-			// request.setAttribute("link",
-			// "http://localhost:8080/Saiful_IT_SOLUTION//storage//home//2f84fbe_header-bg.jpg");
+			dao = daoFactory.getDao(TAG);
+			view = ViewFactory.getView(TAG);
 
-			// System.out.println(gDao.getAll("litons_group", jdbcTemplate));
+			List<Service> services = dao.getAllLimit();
+
+			request.setAttribute("services", view.view(services));
+
+			TAG = "PROJECT";
+
+			dao = daoFactory.getDao(TAG);
+			view = ViewFactory.getView(TAG);
+
+			List<Project> projects = dao.getAllLimit();
+
+			request.setAttribute("latestWorks", view.view(projects));
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("User Home Exception : " + e.getMessage());
 		}
 		mnv = new ModelAndView(direct());
 		return mnv;
-	}
-
-	// migrate all database manupulations
-	public void installDatabase() {
-		InstallMigrations migrate = new InstallMigrations(jdbcTemplate);
 	}
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -80,6 +106,23 @@ public class UserHomeController implements Defualt {
 	public String back() {
 		// TODO Auto-generated method stub
 		return RDIR;
+	}
+
+	@RequestMapping(value = "/install", method = RequestMethod.GET)
+	public ModelAndView install() {
+
+		mnv = new ModelAndView(back());
+
+		try {
+			new InstallMigrations(jdbcTemplate);
+
+			System.out.println("Install Complement ! '.' ");
+
+		} catch (Exception ex) {
+
+			System.out.println("Installation Exception : " + ex.getMessage());
+		}
+		return mnv;
 	}
 
 }

@@ -26,33 +26,34 @@
 	<div class="container w">
 		<div class="row centered">
 			<br> <br>
-			<div class="col-lg-4">
+			<%= request.getAttribute("services")%>
+			<!-- <div class="col-lg-4">
 				<i class="fa fa-desktop"></i>
 				<h4>WEB DESIGN</h4>
 				<p>There are many variations of passages of Lorem Ipsum
 					available, but the majority have suffered alteration in some form.</p>
-			</div>
+			</div> -->
 			<!-- col-lg-4 -->
 
-			<div class="col-lg-4">
+			<!-- <div class="col-lg-4">
 				<i class="fa fa-cogs"></i>
 				<h4>WEB DEVELOPMENT</h4>
 				<p>There are many variations of passages of Lorem Ipsum
 					available, but the majority have suffered alteration in some form.</p>
-			</div>
+			</div> -->
 			<!-- col-lg-4 -->
 
-			<div class="col-lg-4">
+			<!-- <div class="col-lg-4">
 				<i class="fa fa-eye"></i>
 				<h4>SEO SERVICES</h4>
 				<p>There are many variations of passages of Lorem Ipsum
 					available, but the majority have suffered alteration in some form.</p>
-			</div>
+			</div> -->
 			<!-- col-lg-4 -->
 		</div>
 		<!-- row -->
 		<br>
-		<div class="row centered">
+	<!-- 	<div class="row centered">
 			<br> <br>
 			<div class="col-lg-4">
 				<i class="fa fa-heart"></i>
@@ -60,7 +61,7 @@
 				<p>There are many variations of passages of Lorem Ipsum
 					available, but the majority have suffered alteration in some form.</p>
 			</div>
-			<!-- col-lg-4 -->
+			col-lg-4
 
 			<div class="col-lg-4">
 				<i class="fa fa-shopping-cart"></i>
@@ -68,7 +69,7 @@
 				<p>There are many variations of passages of Lorem Ipsum
 					available, but the majority have suffered alteration in some form.</p>
 			</div>
-			<!-- col-lg-4 -->
+			col-lg-4
 
 			<div class="col-lg-4">
 				<i class="fa fa-cloud"></i>
@@ -76,8 +77,8 @@
 				<p>There are many variations of passages of Lorem Ipsum
 					available, but the majority have suffered alteration in some form.</p>
 			</div>
-			<!-- col-lg-4 -->
-		</div>
+			col-lg-4
+		</div> -->
 		<!-- row -->
 	</div>
 	<!-- container -->

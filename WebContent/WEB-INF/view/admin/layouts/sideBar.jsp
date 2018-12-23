@@ -12,13 +12,12 @@
 		</div> -->
 		<div class="sidebar-wrapper">
 			<ul class="nav">
-				<li><a href="project"> Project</a></li>
+				<li><a href="project"> Projects</a></li>
 				<li><a href="projectForm">Upload Project</a></li>
 				<li><a href="admin">Admin</a></li>
 				<li><a href="projectTool">Tools</a></li>
-				<li><a href="project"> Project</a></li>
-				<li><a href="project"> Project</a></li>
-				<li><a href="project"> Project</a></li>
+				<li><a href="serviceContentList">Service Content List</a></li>
+				<li><a href="index">Home</a></li>
 				<li><a href="project"> Project</a></li>
 				<li><a href="project"> Project</a></li>
 				<script type="text/javascript">

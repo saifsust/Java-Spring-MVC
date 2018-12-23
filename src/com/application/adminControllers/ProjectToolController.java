@@ -14,22 +14,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.application.dao.ProjectToolDao;
+import com.application.factorys.DaoFactory;
+import com.application.factorys.ViewFactory;
 import com.application.interfaces.Defualt;
+import com.application.interfaces.Query;
+import com.application.interfaces.View;
 import com.application.model.ProjectTool;
-import com.application.viewLogic.ProjectToolView;
+import com.application.views.ProjectToolView;
 
 @Controller("projectToolController")
 public class ProjectToolController implements Defualt {
 
-	private JdbcTemplate jdbcTemplate;
+	private String TYPE = "PROJECT-TOOL";
+	private DaoFactory daoFactory;
 	private ModelAndView mnv;
+	private Query projectToolDao;
+	private View view = ViewFactory.getView(TYPE);
 
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		// TODO Auto-generated method stub
-		jdbcTemplate = new JdbcTemplate(dataSource);
+		daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		projectToolDao = daoFactory.getDao(TYPE);
 
 	}
 
@@ -39,13 +46,19 @@ public class ProjectToolController implements Defualt {
 		request.setAttribute("check", 2);
 
 		try {
-			ProjectToolDao projectToolDao = new ProjectToolDao();
-			List<ProjectTool> tools = projectToolDao.getAll(jdbcTemplate);
-			request.setAttribute("tools", ProjectToolView.printProjectTool(tools));
-			request.setAttribute("projectToolForm", ProjectToolView.projectToolForm());
+
+			List<ProjectTool> tools = projectToolDao.getAll();
+
+			/*for (ProjectTool tool : tools) {
+				System.out.println(tool);
+			}*/
+
+			request.setAttribute("tools", view.view_table(tools));
+
+			request.setAttribute("projectToolForm", view.form());
 
 		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+			System.out.println("Project Tool Controller Exception : " + ex.getMessage());
 		}
 
 		mnv = new ModelAndView(direct());
@@ -58,8 +71,7 @@ public class ProjectToolController implements Defualt {
 
 		try {
 
-			ProjectToolDao projectToolDao = new ProjectToolDao();
-			projectToolDao.insert(projectTool, jdbcTemplate);
+			projectToolDao.insert(projectTool);
 
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

@@ -1,7 +1,5 @@
 package com.application.adminControllers;
 
-import java.sql.SQLException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
@@ -17,21 +15,22 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.application.businessLogic.ImageFactory;
-import com.application.dao.EngineerDao;
-import com.application.dao.RankDao;
+import com.application.factorys.DaoFactory;
 import com.application.interfaces.Defualt;
+import com.application.interfaces.Query;
 import com.application.model.Engineer;
 
 @Controller("engineerController")
 public class EngineerController implements Defualt {
 
 	private ModelAndView mnv;
-	private JdbcTemplate jdbcTemplate;
+
+	private DaoFactory daoFactory;
 
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
+		this.daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
 	}
 
 	@RequestMapping(value = "/engineer", method = RequestMethod.GET)
@@ -39,11 +38,14 @@ public class EngineerController implements Defualt {
 	public ModelAndView view(HttpServletRequest request, HttpServletResponse response) {
 
 		mnv = new ModelAndView(direct());
-		RankDao rankDao = new RankDao();
-		try {
-			request.setAttribute("ranks", rankDao.getAll(jdbcTemplate));
 
-		} catch (SQLException e) {
+		try {
+
+			Query rankDao = daoFactory.getDao("RANK");
+
+			request.setAttribute("ranks", rankDao.getAll());
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -56,12 +58,15 @@ public class EngineerController implements Defualt {
 		mnv = new ModelAndView(back());
 		try {
 			ImageFactory imageFactory = new ImageFactory();
-			String img = imageFactory.move(mpf, STORE_PROFILE,_PROFILE, httpServletRequest);
+			String img = imageFactory.move(mpf, STORE_PROFILE, _PROFILE, httpServletRequest);
+			
 			engineer.setPicture(img);
+			
 			System.out.println(engineer);
 
-			EngineerDao engineerDao = new EngineerDao();
-			engineerDao.insert(engineer, jdbcTemplate);
+			Query engineerDao = daoFactory.getDao("engineer");
+			engineerDao.insert(engineer);
+			
 		} catch (Exception ex) {
 			System.out.println("Engineer Control : " + ex.getMessage());
 		}

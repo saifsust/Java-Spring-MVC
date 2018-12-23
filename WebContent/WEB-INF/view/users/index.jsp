@@ -8,7 +8,7 @@
 	<jsp:include page="layouts/navbar.jsp" />
 	<!-- -->
 
-	<%= request.getAttribute("header") %>
+	<%=request.getAttribute("header")%>
 
 	<!-- 	<div style="background: url(http://localhost:8080/Saiful_IT_SOLUTION//storage//home//2f84fbe_header-bg.jpg) no-repeat center top;"
 		id="headerwrap">
@@ -31,26 +31,28 @@
 	<div class="container w">
 		<div class="row centered">
 			<br> <br>
-			<div class="col-lg-4">
+
+			<%=request.getAttribute("services")%>
+			<!-- 	<div class="col-lg-4">
 				<i class="fa fa-heart"></i>
 				<h4>DESIGN</h4>
 				<p>There are many variations of passages of Lorem Ipsum
 					available, but the majority have suffered alteration in some form,
 					by injected humour, or randomised words which don't look even
 					believable.</p>
-			</div>
+			</div> -->
 			<!-- col-lg-4 -->
 
-			<div class="col-lg-4">
+			<!-- 	<div class="col-lg-4">
 				<i class="fa fa-laptop"></i>
 				<h4>BOOTSTRAP</h4>
 				<p>There are many variations of passages of Lorem Ipsum
 					available, but the majority have suffered alteration in some form,
 					by injected humour, or randomised words which don't look even
 					believable.</p>
-			</div>
+			</div> -->
 			<!-- col-lg-4 -->
-
+			<!-- 
 			<div class="col-lg-4">
 				<i class="fa fa-trophy"></i>
 				<h4>SUPPORT</h4>
@@ -58,7 +60,7 @@
 					available, but the majority have suffered alteration in some form,
 					by injected humour, or randomised words which don't look even
 					believable.</p>
-			</div>
+			</div> -->
 			<!-- col-lg-4 -->
 		</div>
 		<!-- row -->
@@ -73,26 +75,17 @@
 			<div class="row centered">
 				<h4>LATEST WORKS</h4>
 				<br>
-				<div class="col-lg-4">
+				<%= request.getAttribute("latestWorks") %>
+				<%-- <div class="col-lg-4">
 					<div class="tilt">
 						<a href="#"><img src='<c:url value ="user/img/p01.png"/>'
 							alt=""></a>
 					</div>
-				</div>
+				</div> --%>
 
-				<div class="col-lg-4">
-					<div class="tilt">
-						<a href="#"><img src='<c:url value ="user/img/p03.png"/>'
-							alt=""></a>
-					</div>
-				</div>
+		
 
-				<div class="col-lg-4">
-					<div class="tilt">
-						<a href="#"><img src='<c:url value ="user/img/p02.png"/>'
-							alt=""></a>
-					</div>
-				</div>
+				
 			</div>
 			<!-- row -->
 		</div>
@@ -102,7 +95,7 @@
 
 
 	<!-- FEATURE SECTION -->
-	<div class="container wb">
+<%-- 	<div class="container wb">
 		<div class="row centered">
 			<br> <br>
 			<div class="col-lg-8 col-lg-offset-2">
@@ -123,7 +116,7 @@
 			</div>
 		</div>
 		<!-- row -->
-	</div>
+	</div> --%>
 	<!-- container -->
 
 

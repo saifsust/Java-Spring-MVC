@@ -9,10 +9,22 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.application.interfaces.Query;
 import com.application.model.Engineer;
+import com.application.model.Service;
 
 public class EngineerDao implements Query<Engineer> {
 
 	private String query;
+
+	private JdbcTemplate jdbcTemplate;
+
+	public EngineerDao() {
+
+	}
+
+	public EngineerDao(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 	@Override
 	public Engineer mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 		Engineer engineer = new Engineer();
@@ -30,13 +42,13 @@ public class EngineerDao implements Query<Engineer> {
 	}
 
 	@Override
-	public List<Engineer> getAll(JdbcTemplate jdbcTemplate) throws SQLException {
+	public List<Engineer> getAll() throws SQLException {
 		query = SELECT_ALL + "engineers";
 		return jdbcTemplate.query(query, new EngineerDao());
 	}
 
 	@Override
-	public boolean insert(Engineer engineer, JdbcTemplate jdbcTemplate) throws SQLException {
+	public boolean insert(Engineer engineer) throws SQLException {
 		query = INSERT
 				+ "engineers(first_name,last_name,picture,about_your_self,user_id,user_password,mail,rank_id) VALUE "
 				+ engineer;
@@ -45,24 +57,39 @@ public class EngineerDao implements Query<Engineer> {
 	}
 
 	@Override
-	public boolean insert(Engineer table, String name, JdbcTemplate jdbcTemplate) throws SQLException {
+	public boolean insert(Engineer table, String name) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-
-
-
 	@Override
-	public List<Map<String, Object>> getAll(String name, JdbcTemplate jdbcTemplate) throws SQLException {
-		
+	public List<Map<String, Object>> getAll(String name) throws SQLException {
+
 		return null;
 	}
 
 	@Override
-	public Map<String, Object> getRowById(int id, JdbcTemplate jdbcTemplate) throws SQLException {
+	public Map<String, Object> getRowById(int id) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Engineer> getAllLimit() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(int id, Engineer model) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(int id, int selected_id) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

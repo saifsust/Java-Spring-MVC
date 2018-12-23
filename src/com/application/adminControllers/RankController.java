@@ -15,22 +15,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.application.dao.RankDao;
+import com.application.factorys.DaoFactory;
+import com.application.factorys.ViewFactory;
 import com.application.interfaces.Defualt;
+import com.application.interfaces.Query;
+import com.application.interfaces.View;
 import com.application.model.Rank;
-import com.application.viewLogic.RankView;
+import com.application.views.RankView;
 
 @Controller("rankController")
 public class RankController implements Defualt {
 
+	private final String TYPE = "RANK";
 	private ModelAndView mnv;
-	private JdbcTemplate jdbcTemplate;
+	private DaoFactory daoFactory;
+	private Query rankDao;
+	private View view = ViewFactory.getView(TYPE);
 
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		// TODO Auto-generated method stub
-		jdbcTemplate = new JdbcTemplate(dataSource);
+		daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		rankDao = daoFactory.getDao(TYPE);
+
 	}
 
 	@RequestMapping(value = "/rank", method = RequestMethod.GET)
@@ -38,13 +46,13 @@ public class RankController implements Defualt {
 		mnv = new ModelAndView(direct());
 
 		request.setAttribute("check", 1);
-		request.setAttribute("rankForm", RankView.rankForm());
-		RankDao rankDao = new RankDao();
-		List<Rank> ranks;
+		request.setAttribute("rankForm", view.form());
+
 		try {
-			ranks = rankDao.getAll(jdbcTemplate);
-			String rankTable = RankView.printRank(ranks);
-			request.setAttribute("ranks", rankTable);
+			List<Rank> ranks = rankDao.getAll();
+
+			request.setAttribute("ranks", view.view(ranks));
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -55,12 +63,11 @@ public class RankController implements Defualt {
 	@RequestMapping(value = "/uploadRank", method = RequestMethod.POST)
 	public ModelAndView store(@RequestParam("rank") Rank rank) {
 		mnv = new ModelAndView(back());
-		RankDao rankDao = new RankDao();
 		try {
-			rankDao.insert(rank, jdbcTemplate);
+			rankDao.insert(rank);
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			System.out.println("Rank Controller Exception : " + e.getMessage());
 		}
 
 		return mnv;

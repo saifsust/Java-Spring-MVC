@@ -1,5 +1,5 @@
-<%@page import="com.application.viewLogic.ProjectToolView"%>
-<%@page import="com.application.viewLogic.RankView"%>
+<%@page import="com.application.views.ProjectToolView"%>
+<%@page import="com.application.views.RankView"%>
 <%@page import="com.application.model.ProjectTool"%>
 <%@page import="com.application.model.Rank"%>
 <%@page import="java.util.*"%>
@@ -23,8 +23,8 @@
 						break;
 					case 2 :
 
-						out.println(request.getAttribute("tools"));
-						out.println(request.getAttribute("projectToolForm"));
+						out.println(request.getAttribute("tools")+"\n");
+						out.println(request.getAttribute("projectToolForm")+"\n");
 						break;
 
 					case 3 :
@@ -36,6 +36,11 @@
 						break;
 					case 5 :
 						out.println(request.getAttribute("profileForm"));
+						break;
+
+					case 6 :
+						// service content form
+						out.println(request.getAttribute("form"));
 						break;
 
 				}

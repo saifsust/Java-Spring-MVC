@@ -3,10 +3,10 @@ package com.application.model;
 public class Service {
 
 	private int service_id;
-	private String title;
-	private String logo;
-	private String detail;
-	private int engineer_id;
+	private String title="";
+	private String logo ="";
+	private String detail="";
+	private int engineer_id=1;
 
 	public Service() {
 		super();
