@@ -18,7 +18,7 @@
 				<li><a href="projectTool">Tools</a></li>
 				<li><a href="serviceContentList">Service Content List</a></li>
 				<li><a href="index">Home</a></li>
-				<li><a href="project"> Project</a></li>
+				<li><a href="client">client</a></li>
 				<li><a href="project"> Project</a></li>
 				<script type="text/javascript">
 					var Location = location.href;

@@ -34,7 +34,7 @@ public class HomeContentsController implements Defualt {
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		daoFactory = new DaoFactory(dataSource);
 
 	}
 

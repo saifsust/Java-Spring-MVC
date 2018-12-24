@@ -33,7 +33,7 @@ public class ServicesController implements Defualt {
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		this.daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		this.daoFactory = new DaoFactory(dataSource);
 		serviceDao = daoFactory.getDao(TYPE);
 
 	}

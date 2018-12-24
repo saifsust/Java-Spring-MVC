@@ -23,8 +23,8 @@
 						break;
 					case 2 :
 
-						out.println(request.getAttribute("tools")+"\n");
-						out.println(request.getAttribute("projectToolForm")+"\n");
+						out.println(request.getAttribute("tools") + "\n");
+						out.println(request.getAttribute("projectToolForm") + "\n");
 						break;
 
 					case 3 :
@@ -41,6 +41,9 @@
 					case 6 :
 						// service content form
 						out.println(request.getAttribute("form"));
+						break;
+					case 7 :
+						out.println(request.getAttribute("social_media_form"));
 						break;
 
 				}

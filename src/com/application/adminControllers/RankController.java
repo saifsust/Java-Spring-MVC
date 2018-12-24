@@ -36,7 +36,7 @@ public class RankController implements Defualt {
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		// TODO Auto-generated method stub
-		daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		daoFactory = new DaoFactory(dataSource);
 		rankDao = daoFactory.getDao(TYPE);
 
 	}

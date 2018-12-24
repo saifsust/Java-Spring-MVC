@@ -34,7 +34,7 @@ public class WorksController implements DefualtAll {
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		this.daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		this.daoFactory = new DaoFactory(dataSource);
 		this.dao = daoFactory.getDao(TYPE);
 	}
 
@@ -46,12 +46,12 @@ public class WorksController implements DefualtAll {
 
 			List<Project> projects = dao.getAll();
 
-			/*for (Project project : projects) {
-				System.out.println(project);
-			}*/
+			/*
+			 * for (Project project : projects) { System.out.println(project); }
+			 */
 
 			TAG = "WORK";
-			
+
 			view = ViewFactory.getView(TAG);
 
 			request.setAttribute("projects", view.view(projects));

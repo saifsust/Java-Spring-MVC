@@ -1,24 +1,24 @@
 package com.application.model;
 
-public class SocialMedias {
+public class SocialMedia {
 
 	private int media_id;
 	private String media_name;
 	private String media_logo;
 	private String media_link;
 
-	public SocialMedias() {
+	public SocialMedia() {
 		super();
 	}
 
-	public SocialMedias(String media_name, String media_logo, String media_link) {
+	public SocialMedia(String media_name, String media_logo, String media_link) {
 		super();
 		this.media_name = media_name;
 		this.media_logo = media_logo;
 		this.media_link = media_link;
 	}
 
-	public SocialMedias(int media_id, String media_name, String media_logo, String media_link) {
+	public SocialMedia(int media_id, String media_name, String media_logo, String media_link) {
 		super();
 		this.media_id = media_id;
 		this.media_name = media_name;

@@ -33,6 +33,7 @@ public class ClientDao implements Query<Client> {
 		client.setPassword(rs.getString("password"));
 		client.setPicture(rs.getString("profile_pic"));
 		client.setCompany_logo(rs.getString("company_logo"));
+		client.setDetail(rs.getString("detail"));
 		return client;
 	}
 

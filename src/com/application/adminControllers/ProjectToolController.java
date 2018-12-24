@@ -35,7 +35,7 @@ public class ProjectToolController implements Defualt {
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		// TODO Auto-generated method stub
-		daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		daoFactory = new DaoFactory(dataSource);
 		projectToolDao = daoFactory.getDao(TYPE);
 
 	}

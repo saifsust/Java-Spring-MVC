@@ -1,5 +1,9 @@
 package com.application.factorys;
 
+
+
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.application.dao.ClientDao;
@@ -17,8 +21,8 @@ public class DaoFactory {
 
 	private JdbcTemplate jdbcTemplate;
 
-	public DaoFactory(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	public DaoFactory(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	public Query getDao(String daoType) {

@@ -30,7 +30,7 @@ public class EngineerController implements Defualt {
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		this.daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		this.daoFactory = new DaoFactory(dataSource);
 	}
 
 	@RequestMapping(value = "/engineer", method = RequestMethod.GET)

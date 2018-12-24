@@ -45,7 +45,7 @@ public class UserHomeController implements Defualt {
 	public void setDataSource(DataSource dataSource) {
 
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
-		daoFactory = new DaoFactory(jdbcTemplate);
+		daoFactory = new DaoFactory(dataSource);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)

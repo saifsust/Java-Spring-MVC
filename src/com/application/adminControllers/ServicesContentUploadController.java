@@ -36,7 +36,7 @@ public class ServicesContentUploadController implements DefualtAll<Service> {
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		this.daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		this.daoFactory = new DaoFactory(dataSource);
 
 		this.serviceDao = daoFactory.getDao(TYPE);
 

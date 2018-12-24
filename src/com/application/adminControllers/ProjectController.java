@@ -40,7 +40,7 @@ public class ProjectController implements Defualt, Methods<Project> {
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		daoFactory = new DaoFactory(dataSource);
 		projectDao = daoFactory.getDao(TYPE);
 	}
 

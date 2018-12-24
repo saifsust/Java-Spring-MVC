@@ -11,7 +11,7 @@ public class ClientView implements View<Client> {
 
 	public String form() {
 
-		out = "<form method='POST' modelAttribute='client' action = 'clientUpload' enctype='multipart/form-data'  >";
+		out = "<form method='POST' modelAttribute='client' action = 'uploadClient' enctype='multipart/form-data'  >";
 		out += "<div class='form-group'>";
 		out += "<input type='text' name = 'first_name' placeholder='First Name'/>";
 		out += "</div>";
@@ -22,7 +22,7 @@ public class ClientView implements View<Client> {
 		out += "<input type='email' name='mail' placeholder ='Email'/>";
 		out += "</div>";
 		out += "<div class='form-group'>";
-		out += "<input type='password' name='last_name' placeholder ='Pssword'/>";
+		out += "<input type='password' name='password' placeholder ='Pssword'/>";
 		out += "</div>";
 		out += "<input type='file' name='img' placeholder ='Picture'/>";
 		out += "<input type='file' name='logo' placeholder ='logo'/>";
@@ -37,8 +37,19 @@ public class ClientView implements View<Client> {
 
 	@Override
 	public String view(List<Client> models) {
-		// TODO Auto-generated method stub
-		return null;
+		out = "<br> <br>";
+
+		for (Client model : models) {
+			out += "<div class=\"col-lg-3\">";
+			out += "	<img class=\"img-circle\" src=\"" + model.getPicture()
+					+ "\" width=\"110\" height=\"110\" alt=\"Image Not Found! \">";
+			out += "<h4>" + model.getFirst_name() + " " + model.getLast_name() + "</h4>";
+			out += "<p>" + model.getDetail() + "<p>\n\n";
+			out += "<p><a href=\"#\">@" + model.getFirst_name() + " </p>";
+			out += "</div>\n";
+		}
+
+		return out;
 	}
 
 	@Override

@@ -15,26 +15,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.application.businessLogic.ImageFactory;
 import com.application.factorys.DaoFactory;
 import com.application.factorys.ViewFactory;
 import com.application.interfaces.Defualt;
 import com.application.interfaces.Methods;
+import com.application.interfaces.Query;
 import com.application.interfaces.View;
 import com.application.model.Client;
 
 @Controller("profileController")
 public class ClientController implements Defualt, Methods<Client> {
 
-	private final String TYPE = "PROFILE";
+	private final String TYPE = "CLIENT";
 	private ModelAndView mnv;
 	private JdbcTemplate jdbcTemplate;
 	private View view = ViewFactory.getView(TYPE);
+	private Query dao;
 	private DaoFactory daoFactory;
+	private ImageFactory imageFactory = new ImageFactory();
 
 	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
-		daoFactory = new DaoFactory(new JdbcTemplate(dataSource));
+		daoFactory = new DaoFactory(dataSource);
 
 	}
 
@@ -44,16 +48,16 @@ public class ClientController implements Defualt, Methods<Client> {
 		return null;
 	}
 
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	@RequestMapping(value = "/client", method = RequestMethod.GET)
 	@Override
 	public ModelAndView view(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 
 		mnv = new ModelAndView(direct());
 		request.setAttribute("check", 5);
-		
+
 		view = ViewFactory.getView(TYPE);
-		
+
 		request.setAttribute("profileForm", view.form());
 		return mnv;
 	}
@@ -70,10 +74,30 @@ public class ClientController implements Defualt, Methods<Client> {
 		return null;
 	}
 
-	@RequestMapping(value = "/clientUpload", method = RequestMethod.POST)
+	@RequestMapping(value = "/uploadClient", method = RequestMethod.POST)
 	public ModelAndView upload(@RequestParam("img") MultipartFile picture, @RequestParam("logo") MultipartFile logo,
 			@ModelAttribute("client") Client model, HttpServletRequest request, HttpServletResponse response) {
 
+		try {
+
+			String pic_path = imageFactory.move(picture, STORE_PROFILE, _PROFILE, request);
+
+			String logo_path = imageFactory.move(logo, STORE_PROFILE, _PROJECT, request);
+
+			model.setPicture(pic_path);
+			model.setCompany_logo(logo_path);
+
+			dao = daoFactory.getDao(TYPE);
+
+			dao.insert(model);
+
+			// System.out.println(model);
+
+		} catch (Exception ex) {
+			System.out.println("Client Upload Exception : " + ex.getMessage());
+		}
+
+		mnv = new ModelAndView(back());
 		return mnv;
 	}
 
@@ -104,7 +128,7 @@ public class ClientController implements Defualt, Methods<Client> {
 	@Override
 	public String back() {
 		// TODO Auto-generated method stub
-		return RDIR + PAGE;
+		return RDIR + "client";
 	}
 
 	@Override
