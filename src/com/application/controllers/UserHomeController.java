@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,14 +24,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.application.factorys.DaoFactory;
 import com.application.factorys.ViewFactory;
 import com.application.interfaces.Defualt;
+import com.application.interfaces.MailSetter;
+import com.application.interfaces.Mailer;
 import com.application.interfaces.Query;
 import com.application.interfaces.View;
+import com.application.mail.Gmail;
 import com.application.migrations.InstallMigrations;
 import com.application.model.Project;
 import com.application.model.Service;
 
 @Controller("userHomeController")
-public class UserHomeController implements Defualt {
+public class UserHomeController implements Defualt, MailSetter {
 
 	private final String TYPE = "HOME";
 	private String TAG;
@@ -39,6 +43,7 @@ public class UserHomeController implements Defualt {
 	private View view;
 	private Query dao;
 	private JdbcTemplate jdbcTemplate;
+	private JavaMailSender mailSender;
 
 	@Autowired
 	@Override
@@ -48,14 +53,26 @@ public class UserHomeController implements Defualt {
 		daoFactory = new DaoFactory(dataSource);
 	}
 
+	@Autowired
+	public void setMailSender(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
+	}
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 
 	@Override
 	public ModelAndView view(HttpServletRequest request, HttpServletResponse response) {
 
 		try {
+			
+			
 
 			System.out.println("Hello User Home");
+			
+			
+			Mailer gmail = new Gmail(mailSender);
+			
+			gmail.send("saiful.sust.tester@gmail.com","saiful.sust.cse@gmail.com","Mail Test", "Hi SAIFUL ISLAM");
 
 			dao = daoFactory.getDao(TYPE);
 

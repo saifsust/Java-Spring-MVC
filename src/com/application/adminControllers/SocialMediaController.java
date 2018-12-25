@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -95,5 +96,7 @@ public class SocialMediaController implements DefualtAll<SocialMedia> {
 
 		return mnv;
 	}
+
+	
 
 }

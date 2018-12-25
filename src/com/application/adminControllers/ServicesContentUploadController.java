@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -119,5 +120,7 @@ public class ServicesContentUploadController implements DefualtAll<Service> {
 		mnv = new ModelAndView(back());
 		return mnv;
 	}
+
+	
 
 }
