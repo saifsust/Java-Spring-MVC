@@ -48,3 +48,21 @@ https://jmguimera.blogspot.com/2016/08/instalar-el-spring-suite-tool-eclipse_23.
       <Context docBase="Mycompany" path="/Saiful_IT_SOLUTION" reloadable="true" source="org.eclipse.jst.jee.server:Mycompany"/>
       
       </Host>
+
+
+tomcat domain config
+
+sudo a2enmod proxy
+sudo a2enmod proxy_http
+service apache2 restart
+
+<VirtualHost *:80>
+    ServerName www.mysite.com
+
+    ProxyRequests On
+    ProxyPass / http://localhost:8080/Application_name/
+    ProxyPassReverse / http://localhost:8080/Application_name/
+</VirtualHost>
+
+sudo a2ensite tomcat
+sudo service apache2 reload
